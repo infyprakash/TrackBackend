@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1705.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackBackend", "TrackBackend\TrackBackend.csproj", "{F034387C-DB9A-4A4B-8CE8-BC5558C61EAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F034387C-DB9A-4A4B-8CE8-BC5558C61EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F034387C-DB9A-4A4B-8CE8-BC5558C61EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F034387C-DB9A-4A4B-8CE8-BC5558C61EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F034387C-DB9A-4A4B-8CE8-BC5558C61EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14019876-FDC5-40FB-811B-504F85D8D476}
+	EndGlobalSection
+EndGlobal
