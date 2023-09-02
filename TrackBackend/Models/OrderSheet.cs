@@ -15,6 +15,7 @@ public class OrderSheet {
     public string? Unit { get; set; }
     public string? PixelWidth { get; set; }
     public string? PixelHeight { get; set; }
+    public bool? IsScheduled { get; set; } = false;
 
     public Boolean? IsActive { get; set; } = true;
     [DataType(DataType.DateTime)]

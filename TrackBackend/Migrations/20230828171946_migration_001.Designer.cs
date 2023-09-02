@@ -11,8 +11,8 @@ using TrackBackend.Models;
 namespace TrackBackend.Migrations
 {
     [DbContext(typeof(TrackContext))]
-    [Migration("20230701144406_migration_2")]
-    partial class migration_2
+    [Migration("20230828171946_migration_001")]
+    partial class migration_001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

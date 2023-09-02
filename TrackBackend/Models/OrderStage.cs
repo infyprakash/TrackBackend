@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TrackBackend.Models;
 
 
-public enum Stage { Processing, Weaving, Trimming, Washing, Finalised };
+public enum Stage {Preparation,Dyeing, Weaving, PreCarving,Washing,Finishing,Dispatched};
 public enum LengthUnit { meter, centimeter, feet }
 
 public class OrderStage

@@ -6,21 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrackBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class migration_2 : Migration
+    public partial class migration_001 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "CreatedAt",
-                table: "orderSheets",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                oldClrType: typeof(DateTime),
-                oldType: "TEXT",
-                oldNullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Manufacturers",
                 columns: table => new
@@ -40,27 +30,55 @@ namespace TrackBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderStages",
+                name: "orderSheets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    OrderSheetId = table.Column<int>(type: "INTEGER", nullable: true),
-                    stage = table.Column<int>(type: "INTEGER", nullable: false),
-                    LengthCompleted = table.Column<double>(type: "REAL", nullable: true),
-                    LengthUnit = table.Column<int>(type: "INTEGER", nullable: true),
-                    FilePath = table.Column<string>(type: "TEXT", nullable: true),
-                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: true),
+                    OrderId = table.Column<string>(type: "TEXT", nullable: true),
+                    DesignName = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    PdfUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    CtfUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    PhysicalWidth = table.Column<string>(type: "TEXT", nullable: true),
+                    PhysicalHeight = table.Column<string>(type: "TEXT", nullable: true),
+                    Unit = table.Column<string>(type: "TEXT", nullable: true),
+                    PixelWidth = table.Column<string>(type: "TEXT", nullable: true),
+                    PixelHeight = table.Column<string>(type: "TEXT", nullable: true),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orderSheets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orderPriorities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ManufacturerId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PriorityName = table.Column<string>(type: "TEXT", nullable: true),
+                    DaysRequiredForProcessing = table.Column<double>(type: "REAL", nullable: true),
+                    LinesPerDay = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForTrimming = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForWashing = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForFinalTriming = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForFinishing = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForPackaging = table.Column<double>(type: "REAL", nullable: true),
+                    DaysRequiredForShipping = table.Column<double>(type: "REAL", nullable: true),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderStages", x => x.Id);
+                    table.PrimaryKey("PK_orderPriorities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orderStages_orderSheets_OrderSheetId",
-                        column: x => x.OrderSheetId,
-                        principalTable: "orderSheets",
+                        name: "FK_orderPriorities_Manufacturers_ManufacturerId",
+                        column: x => x.ManufacturerId,
+                        principalTable: "Manufacturers",
                         principalColumn: "Id");
                 });
 
@@ -91,31 +109,27 @@ namespace TrackBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderPriorities",
+                name: "orderStages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ManufacturerId = table.Column<int>(type: "INTEGER", nullable: true),
-                    PriorityName = table.Column<string>(type: "TEXT", nullable: true),
-                    DaysRequiredForProcessing = table.Column<double>(type: "REAL", nullable: true),
-                    LinesPerDay = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForTrimming = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForWashing = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForFinalTriming = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForFinishing = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForPackaging = table.Column<double>(type: "REAL", nullable: true),
-                    DaysRequiredForShipping = table.Column<double>(type: "REAL", nullable: true),
+                    OrderSheetId = table.Column<int>(type: "INTEGER", nullable: true),
+                    stage = table.Column<int>(type: "INTEGER", nullable: false),
+                    LengthCompleted = table.Column<double>(type: "REAL", nullable: true),
+                    LengthUnit = table.Column<int>(type: "INTEGER", nullable: true),
+                    FilePath = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: true),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderPriorities", x => x.Id);
+                    table.PrimaryKey("PK_orderStages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orderPriorities_Manufacturers_ManufacturerId",
-                        column: x => x.ManufacturerId,
-                        principalTable: "Manufacturers",
+                        name: "FK_orderStages_orderSheets_OrderSheetId",
+                        column: x => x.OrderSheetId,
+                        principalTable: "orderSheets",
                         principalColumn: "Id");
                 });
 
@@ -193,15 +207,10 @@ namespace TrackBackend.Migrations
                 name: "orderPriorities");
 
             migrationBuilder.DropTable(
-                name: "Manufacturers");
+                name: "orderSheets");
 
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "CreatedAt",
-                table: "orderSheets",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(DateTime),
-                oldType: "TEXT");
+            migrationBuilder.DropTable(
+                name: "Manufacturers");
         }
     }
 }

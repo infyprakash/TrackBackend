@@ -22,8 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000",
-                                              "http://www.contoso.com");
+                          policy.WithOrigins("http://localhost:3000","http://192.168.101.5", "http://192.168.101.5:3000","http://www.contoso.com", "http://192.168.101.198:3000");
                       });
 });
 
@@ -43,7 +42,7 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
            Path.Combine(builder.Environment.ContentRootPath, "MyStaticFiles")),
-    RequestPath = "/StaticFiles"
+    RequestPath = "/MyStaticFiles"
 });
 
 
@@ -54,4 +53,6 @@ app.UseCors(MyAllowSpecificOrigins);
 
 
 app.Run();
+
+
 

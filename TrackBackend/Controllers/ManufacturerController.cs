@@ -9,8 +9,8 @@ using TrackBackend.Models;
 
 namespace TrackBackend.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class ManufacturerController : ControllerBase
     {
         private readonly TrackContext _context;
@@ -19,6 +19,15 @@ namespace TrackBackend.Controllers
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<ActionResult<IEnumerable<OrderSheet>>> GetAllManufacturer()
+        {
+            var result = await _context.Manufacturers
+                .Where(r => r.IsActive == true).ToListAsync();
+            return Ok(result);
         }
         [HttpPost]
         public async Task<ActionResult<Manufacturer>> PostManufacturer(ManufacturerCreate manufacturerCreate)

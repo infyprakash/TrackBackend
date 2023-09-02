@@ -6,14 +6,15 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrackBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TrackBackend.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class OrderSheetController : ControllerBase
     {
         private readonly TrackContext _context;
@@ -23,6 +24,24 @@ namespace TrackBackend.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        [Route("byId")]
+        public async Task<ActionResult<IEnumerable<OrderSheet>>> GetAllOrderSheetById(string orderId)
+        {
+            var orders = await _context.orderSheets
+                .Where(r => r.OrderId==orderId && r.IsActive == true).FirstOrDefaultAsync();
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<ActionResult<IEnumerable<OrderSheet>>> GetAllOrderSheet()
+        {
+            var orders = await _context.orderSheets
+                .Where(r => r.IsActive == true).ToListAsync();
+            return Ok(orders);
+        }
+
         [HttpGet]
         public async Task<ActionResult<OrderSheet>> GetOrderSheet()
         {
@@ -73,6 +92,7 @@ namespace TrackBackend.Controllers
             }
             return Ok(OrderSheets);
         }
+
 
     }
 }

@@ -91,6 +91,7 @@ namespace TrackBackend.Controllers
             {
                 return NotFound();
             }
+            // 10 cm per day
             var orderPriorityDict = ConvertModelToDictionary(orderPriority);
             double linesPerSquareInch = 2;
             double totalLines = 0;
