@@ -15,7 +15,7 @@ public class OrderStage
     public Stage stage { get; set; }
     public double? LengthCompleted { get; set; } = 0;
     public LengthUnit? LengthUnit { get; set; }
-    public String? FilePath { get; set; }
+    public String? FilePath { get; set; } = "MyStaticFiles/images/notfound/notfound.png";
     public Boolean? IsCompleted { get; set; } = false;
 
     public OrderSheet? OrderSheet { get; set; }

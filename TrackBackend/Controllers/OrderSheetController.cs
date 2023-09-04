@@ -38,7 +38,7 @@ namespace TrackBackend.Controllers
         public async Task<ActionResult<IEnumerable<OrderSheet>>> GetAllOrderSheet()
         {
             var orders = await _context.orderSheets
-                .Where(r => r.IsActive == true).ToListAsync();
+                .Where(r => r.IsActive == true && r.IsScheduled==true).ToListAsync();
             return Ok(orders);
         }
 

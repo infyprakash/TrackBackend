@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrackBackend.Models;
+
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -93,19 +96,15 @@ namespace TrackBackend.Controllers
             }
             // 10 cm per day
             var orderPriorityDict = ConvertModelToDictionary(orderPriority);
-            double linesPerSquareInch = 2;
-            double totalLines = 0;
+            var DaysRequiredForWeaving = 0;
             if (order.Unit == "ft")
             {
-                totalLines = (linesPerSquareInch) * ((12 * Convert.ToDouble(order.PhysicalWidth)) * (12 * Convert.ToDouble(order.PhysicalHeight)));
-
+                DaysRequiredForWeaving = Convert.ToInt32(Convert.ToDouble(order.PhysicalHeight) / (10 * 0.0328084));
             }
             else
             {
-                totalLines = (linesPerSquareInch) * ((Convert.ToDouble(order.PhysicalWidth) / 2.54) * (Convert.ToDouble(order.PhysicalHeight) / 2.54));
-
+                DaysRequiredForWeaving = Convert.ToInt32(Convert.ToDouble(order.PhysicalHeight) / (10));
             }
-            var DaysRequiredForWeaving = totalLines / orderPriority.LinesPerDay;
             var totalDays = Convert.ToInt32(orderPriority.DaysRequiredForFinalTriming
                 + DaysRequiredForWeaving
                 + orderPriority.DaysRequiredForFinishing
@@ -115,10 +114,8 @@ namespace TrackBackend.Controllers
                 + orderPriority.DaysRequiredForTrimming
                 + orderPriority.DaysRequiredForWashing);
             orderPriorityDict.Add("TotalDaysRequired", totalDays);
-            if (DaysRequiredForWeaving != null)
-            {
-                orderPriorityDict.Add("DaysReqiredForWeaving", DaysRequiredForWeaving);
-            }
+            orderPriorityDict.Add("DaysReqiredForWeaving", DaysRequiredForWeaving);
+            
             orderDictionary.Add("OrderStatusEstimate", orderPriorityDict);
             orderDictionary.Add("ExpectedDeliveryDate", orderStatus.DeliveryDate!);
 

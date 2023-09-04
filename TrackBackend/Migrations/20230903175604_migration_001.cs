@@ -45,6 +45,7 @@ namespace TrackBackend.Migrations
                     Unit = table.Column<string>(type: "TEXT", nullable: true),
                     PixelWidth = table.Column<string>(type: "TEXT", nullable: true),
                     PixelHeight = table.Column<string>(type: "TEXT", nullable: true),
+                    IsScheduled = table.Column<bool>(type: "INTEGER", nullable: true),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },

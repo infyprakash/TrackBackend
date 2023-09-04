@@ -99,6 +99,7 @@ namespace TrackBackend.Controllers
             if (StageMapped.stage == Stage.Dispatched && StageMapped.IsCompleted == true)
             {
                 order.IsActive = false;
+
                 await _context.SaveChangesAsync();
             }
 

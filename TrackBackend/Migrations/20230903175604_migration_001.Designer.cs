@@ -11,14 +11,14 @@ using TrackBackend.Models;
 namespace TrackBackend.Migrations
 {
     [DbContext(typeof(TrackContext))]
-    [Migration("20230828171946_migration_001")]
+    [Migration("20230903175604_migration_001")]
     partial class migration_001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
 
             modelBuilder.Entity("TrackBackend.Models.Manufacturer", b =>
                 {
@@ -144,6 +144,9 @@ namespace TrackBackend.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsScheduled")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("OrderId")
